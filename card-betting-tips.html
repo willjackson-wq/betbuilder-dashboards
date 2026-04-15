@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yellow Card Betting Tips | 15–16 Apr 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f1117;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: #1a1d27;
+      border-bottom: 2px solid #f5a623;
+      padding: 24px 32px;
+    }
+    .header-inner { max-width: 1140px; margin: 0 auto; }
+    .header h1 { color: #f5a623; font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }
+    .header .subtitle { color: #9ca3af; font-size: 0.875rem; margin-top: 4px; }
+    .header .generated { color: #6b7280; font-size: 0.75rem; margin-top: 6px; }
+    .header-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+    .meta-chip {
+      font-size: 0.72rem; background: #252836; color: #9ca3af;
+      border: 1px solid #374151; border-radius: 20px; padding: 3px 10px;
+    }
+    .meta-chip strong { color: #f5a623; }
+
+    /* ── Container ── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 28px 16px 48px; }
+
+    /* ── Section heading ── */
+    .section-header {
+      display: flex; align-items: center; gap: 12px;
+      margin: 36px 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #2d3144;
+    }
+    .section-header h2 { font-size: 1.2rem; font-weight: 700; color: #f5a623; }
+    .section-count {
+      font-size: 0.7rem; font-weight: 800; background: #f5a623;
+      color: #0f1117; border-radius: 12px; padding: 2px 9px;
+    }
+    .section-date { color: #6b7280; font-size: 0.78rem; margin-left: auto; }
+
+    /* ── Tips grid ── */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    /* ── Tip card ── */
+    .tip-card {
+      background: #1a1d27;
+      border: 1px solid #2d3144;
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.18s, transform 0.18s;
+      position: relative;
+    }
+    .tip-card:hover {
+      border-color: #f5a623;
+      transform: translateY(-2px);
+    }
+
+    /* Accent stripe */
+    .tip-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      border-radius: 14px 0 0 14px;
+    }
+    .tip-card.conf-HIGH::before  { background: #22c55e; }
+    .tip-card.conf-MEDIUM::before { background: #f59e0b; }
+    .tip-card.conf-LOW::before   { background: #ef4444; }
+
+    /* ── Card header row ── */
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .tip-index {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: #f5a623; color: #0f1117;
+      font-size: 0.78rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── Confidence badge ── */
+    .conf-badge {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em;
+      padding: 3px 10px; border-radius: 12px;
+    }
+    .conf-HIGH   { background: #14532d; color: #4ade80; border: 1px solid #166534; }
+    .conf-MEDIUM { background: #78350f; color: #fbbf24; border: 1px solid #92400e; }
+    .conf-LOW    { background: #7f1d1d; color: #f87171; border: 1px solid #991b1b; }
+
+    /* ── Player info ── */
+    .player-name { font-size: 1.3rem; font-weight: 700; color: #ffffff; }
+    .player-meta { font-size: 0.78rem; color: #9ca3af; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .club-tag { color: #f5a623; font-weight: 600; }
+    .pos-tag {
+      background: #252836; border: 1px solid #374151;
+      border-radius: 4px; padding: 1px 6px; font-size: 0.68rem; color: #d1d5db;
+    }
+    .league-tag {
+      background: #1e2235; border: 1px solid #374151;
+      border-radius: 4px; padding: 1px 6px; font-size: 0.68rem; color: #9ca3af;
+    }
+
+    /* ── Match info box ── */
+    .match-box {
+      background: #0f1117;
+      border: 1px solid #2d3144;
+      border-radius: 8px;
+      padding: 10px 13px;
+    }
+    .match-title { font-weight: 600; color: #e0e0e0; font-size: 0.85rem; }
+    .match-context { color: #9ca3af; font-size: 0.78rem; margin-top: 3px; }
+    .match-kickoff { color: #f5a623; font-size: 0.75rem; margin-top: 5px; }
+
+    /* ── Stats chips ── */
+    .stats-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .stat-chip {
+      background: #252836;
+      border-radius: 8px;
+      padding: 6px 10px;
+      min-width: 72px;
+    }
+    .stat-label { font-size: 0.65rem; color: #6b7280; display: block; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .stat-value { font-size: 0.88rem; font-weight: 700; color: #e0e0e0; }
+    .stat-value.highlight { color: #f5a623; }
+
+    /* ── Referee row ── */
+    .referee-row {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      font-size: 0.78rem; color: #9ca3af;
+    }
+    .ref-icon { font-size: 0.85rem; }
+    .ref-name { color: #e0e0e0; font-weight: 500; }
+    .ref-avg-chip {
+      background: #252836; border-radius: 6px; padding: 2px 8px;
+      font-size: 0.72rem; font-weight: 700;
+    }
+    .ref-avg-chip.high { color: #4ade80; }
+    .ref-avg-chip.medium { color: #fbbf24; }
+    .ref-avg-chip.low, .ref-avg-chip.tbc { color: #9ca3af; }
+
+    /* ── Analysis ── */
+    .analysis { font-size: 0.8rem; color: #9ca3af; line-height: 1.65; flex: 1; }
+
+    /* ── Card footer ── */
+    .card-footer { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+    .odds-display {
+      background: #166534; color: #4ade80;
+      border-radius: 6px; padding: 7px 12px;
+      font-size: 0.82rem; font-weight: 700;
+    }
+    .odds-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #f5a623; color: #0f1117;
+      border: none; border-radius: 6px;
+      padding: 7px 14px; font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.15s;
+    }
+    .odds-btn:hover { background: #d97706; }
+    .copy-btn {
+      background: #252836; color: #9ca3af;
+      border: 1px solid #374151; border-radius: 6px;
+      padding: 7px 11px; font-size: 0.75rem;
+      cursor: pointer; transition: background 0.15s, color 0.15s;
+      margin-left: auto;
+    }
+    .copy-btn:hover { background: #2d3144; color: #e0e0e0; }
+    .copy-feedback {
+      display: none; font-size: 0.72rem; color: #4ade80; margin-left: 4px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: #1a1d27;
+      border-top: 1px solid #2d3144;
+      padding: 28px 32px;
+      text-align: center;
+    }
+    .footer-inner { max-width: 800px; margin: 0 auto; }
+    .footer .rg-title { color: #f5a623; font-weight: 700; font-size: 0.85rem; margin-bottom: 8px; }
+    .footer p { font-size: 0.78rem; color: #6b7280; line-height: 1.7; }
+    .footer a { color: #f5a623; text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+    .footer .disclaimer { font-size: 0.7rem; color: #4b5563; margin-top: 10px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .header { padding: 16px; }
+      .container { padding: 16px 10px 40px; }
+      .tips-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════ HEADER ════════════════ -->
+<header class="header">
+  <div class="header-inner">
+    <h1>🟨 Yellow Card Betting Tips</h1>
+    <p class="subtitle">Daily booking tips across UEFA Champions League &amp; Europa League</p>
+    <p class="generated">Generated: Wednesday 15 April 2026 · 10:45 BST</p>
+    <div class="header-meta">
+      <span class="meta-chip"><strong>5</strong> Tips today &amp; tomorrow</span>
+      <span class="meta-chip"><strong>3</strong> HIGH confidence</span>
+      <span class="meta-chip"><strong>UCL</strong> QF 2nd Legs · <strong>UEL</strong> QF 2nd Legs</span>
+      <span class="meta-chip">Odds via BoyleSports</span>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════ MAIN ════════════════ -->
+<main class="container" id="app"></main>
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="rg-title">⚠️ Please Gamble Responsibly</p>
+    <p>Gambling should be entertaining — never chase losses, and only bet what you can afford to lose.<br>
+      If gambling is affecting you or someone you know, get free confidential help:</p>
+    <p style="margin-top:8px;">
+      📞 <strong>National Gambling Helpline: 0808 8020 133</strong> (free, 24/7) &nbsp;|&nbsp;
+      <a href="https://www.begambleaware.org" target="_blank" rel="noopener">BeGambleAware.org</a> &nbsp;|&nbsp;
+      <a href="https://www.gamcare.org.uk" target="_blank" rel="noopener">GamCare.org.uk</a>
+    </p>
+    <p class="disclaimer">
+      18+ only. Tips are for informational and entertainment purposes only — no outcome is guaranteed.
+      Odds correct at time of research but subject to change. Always check the latest odds directly with your bookmaker.
+    </p>
+  </div>
+</footer>
+
+<!-- ════════════════ SCRIPT ════════════════ -->
+<script>
+const GENERATED_DATE = "Wednesday 15 April 2026, 10:45 BST";
+
+const TIPS = {
+  today: [
+    {
+      match: "Arsenal vs Sporting CP",
+      league: "UEFA Champions League",
+      kickOff: "20:00 BST",
+      context: "QF 2nd Leg — Arsenal lead 1-0 on agg (Havertz 90+1' in first leg)",
+      playerName: "Martín Zubimendi",
+      club: "Arsenal",
+      position: "CDM",
+      tipType: "Player To Be Booked",
+      confidence: "HIGH",
+      boyleSportsOdds: null,
+      boyleSportsUrl: "https://www.boylesports.com/sports/football/event/uefa-champions-league/arsenal-v-sporting-cp",
+      stats: {
+        yellowsThisSeason: 4,
+        foulsPerGame: null,
+        cardsPer90: 0.40,
+        appearances: 10
+      },
+      referee: {
+        name: "François Letexier (FRA)",
+        avgCardsPerGame: 4.39
+      },
+      analysis: "Arsenal's Spanish CDM is on a UCL booking tightrope — having accumulated 4 yellow cards, a fifth triggers a semi-final suspension. Facing Sporting CP pushing desperately from behind (trailing 0-1 on aggregate), Zubimendi must win second balls, intercept and tackle for the full 90 at the Emirates. His role as the last defensive shield in Arsenal's midfield means he absorbs more contact than any other outfield player. Letexier has averaged a commanding 4.39 yellow cards per game in 2025-26, making this a premium booking setup."
+    },
+    {
+      match: "Arsenal vs Sporting CP",
+      league: "UEFA Champions League",
+      kickOff: "20:00 BST",
+      context: "QF 2nd Leg — Sporting CP must overturn 0-1 aggregate deficit at the Emirates",
+      playerName: "Hidemasa Morita",
+      club: "Sporting CP",
+      position: "CDM",
+      tipType: "Player To Be Booked",
+      confidence: "MEDIUM",
+      boyleSportsOdds: null,
+      boyleSportsUrl: "https://www.boylesports.com/sports/football/event/uefa-champions-league/arsenal-v-sporting-cp",
+      stats: {
+        yellowsThisSeason: 3,
+        foulsPerGame: null,
+        cardsPer90: 0.25,
+        appearances: 24
+      },
+      referee: {
+        name: "François Letexier (FRA)",
+        avgCardsPerGame: 4.39
+      },
+      analysis: "Sporting CP's combative Japanese midfield anchor must chase the game from kick-off in the hostile Emirates atmosphere. Trailing 0-1 on aggregate, Morita will be at the heart of every 50/50 — he commits 1.85 fouls per 90 in Liga NOS, among the highest in the Sporting squad. With Letexier officiating and issuing 4.39 yellows per game this season, the environment favours early bookings for defensive midfielders. Confidence capped at MEDIUM given the away-ground dynamics reducing referee leniency on the visiting side's complaints."
+    },
+    {
+      match: "Bayern Munich vs Real Madrid",
+      league: "UEFA Champions League",
+      kickOff: "20:00 BST",
+      context: "QF 2nd Leg — Bayern lead 2-1 on agg; Real Madrid must score twice to advance",
+      playerName: "Jude Bellingham",
+      club: "Real Madrid",
+      position: "CM",
+      tipType: "Player To Be Booked",
+      confidence: "MEDIUM",
+      boyleSportsOdds: null,
+      boyleSportsUrl: "https://www.boylesports.com/sports/football/event/uefa-champions-league/fc-bayern-munchen-v-real-madrid",
+      stats: {
+        yellowsThisSeason: 4,
+        foulsPerGame: null,
+        cardsPer90: 0.25,
+        appearances: 10
+      },
+      referee: {
+        name: "Slavko Vinčić (SVN)",
+        avgCardsPerGame: 2.71
+      },
+      analysis: "Real Madrid must score at least two goals at the Allianz Arena to advance, and Bellingham — one of six Los Blancos stars at suspension risk with 4 UCL yellows — needs to drive them forward in a high-intensity chase. His box-to-box aggression, combative duels, and late lunges in pursuit of big moments in knockout football make him a credible booking candidate. Vinčić has been notably lenient this season (2.71/game vs career average of 4.10), keeping this at MEDIUM, but the narrative pressure of Madrid needing to mount a comeback from 1-2 down tips the scales."
+    }
+  ],
+  tomorrow: [
+    {
+      match: "Nottingham Forest vs Porto",
+      league: "UEFA Europa League",
+      kickOff: "20:00 BST",
+      context: "QF 2nd Leg — Level 1-1 on agg (Porto 1-1 Forest in first leg at Estádio do Dragão)",
+      playerName: "Elliot Anderson",
+      club: "Nottingham Forest",
+      position: "CM",
+      tipType: "Player To Be Booked",
+      confidence: "HIGH",
+      boyleSportsOdds: null,
+      boyleSportsUrl: "https://www.boylesports.com/sports/football/event/uefa-europa-league/nottingham-forest-v-fc-porto",
+      stats: {
+        yellowsThisSeason: 6,
+        foulsPerGame: null,
+        cardsPer90: 0.43,
+        appearances: 31
+      },
+      referee: {
+        name: "TBC",
+        avgCardsPerGame: null
+      },
+      analysis: "Anderson is Nottingham Forest's engine and leads the squad in both fouls committed (1.49 per 90) and yellow cards (6 in 31 PL appearances, 0.43/90). This chronic booking pattern speaks to a physically aggressive, ball-winning style that thrives in high-pressure environments — exactly the kind of night the City Ground will provide. The tie is perfectly poised at 1-1, Forest need to impose themselves at home, and Porto's technical midfield will invite hard challenges from Anderson throughout. Referee TBC is the only caveat, keeping confidence from reaching maximum."
+    },
+    {
+      match: "Aston Villa vs Bologna",
+      league: "UEFA Europa League",
+      kickOff: "20:00 BST",
+      context: "QF 2nd Leg — Aston Villa lead 3-1 on agg (Watkins brace, Konsa header in Bologna)",
+      playerName: "Remo Freuler",
+      club: "Bologna",
+      position: "CDM",
+      tipType: "Player To Be Booked",
+      confidence: "MEDIUM",
+      boyleSportsOdds: null,
+      boyleSportsUrl: "https://www.boylesports.com/sports/football/event/uefa-europa-league/aston-villa-v-bologna",
+      stats: {
+        yellowsThisSeason: 2,
+        foulsPerGame: null,
+        cardsPer90: 0.27,
+        appearances: 11
+      },
+      referee: {
+        name: "TBC",
+        avgCardsPerGame: null
+      },
+      analysis: "Bologna face a near-impossible mission at Villa Park — needing three goals to advance on the night forces them into relentless, high-risk attacking play from the first whistle. As the Swiss defensive anchor and ex-Atalanta midfield hardman, Freuler will be tasked with winning the ball quickly and covering the spaces left behind by Bologna's surging forward players. His 1.05 fouls per 90 in Serie A demonstrates a consistently combative style. Desperate teams chasing multi-goal deficits in knockout ties historically accumulate bookings early. Referee TBC is the key uncertainty keeping this at MEDIUM."
+    }
+  ]
+};
+
+/* ─── buildOddsBlock ─── */
+function buildOddsBlock(tip) {
+  if (tip.boyleSportsOdds) {
+    return `
+      <div class="odds-display">${tip.boyleSportsOdds}</div>
+      <a href="${tip.boyleSportsUrl}" target="_blank" rel="noopener noreferrer" class="odds-btn">
+        Bet on BoyleSports ↗
+      </a>`;
+  }
+  return `
+    <a href="${tip.boyleSportsUrl}" target="_blank" rel="noopener noreferrer" class="odds-btn">
+      Check BoyleSports Odds ↗
+    </a>`;
+}
+
+/* ─── buildCard ─── */
+function buildCard(tip, idx) {
+  const confClass = `conf-${tip.confidence}`;
+
+  /* Referee card average chip colour */
+  let refChipClass = 'tbc';
+  let refAvgHtml = '<span class="ref-avg-chip tbc">avg TBC</span>';
+  if (tip.referee.avgCardsPerGame !== null) {
+    const avg = tip.referee.avgCardsPerGame;
+    if (avg >= 3.5)       { refChipClass = 'high';   }
+    else if (avg >= 2.5)  { refChipClass = 'medium'; }
+    else                  { refChipClass = 'low';    }
+    refAvgHtml = `<span class="ref-avg-chip ${refChipClass}">${avg} cards/game</span>`;
+  }
+
+  const foulsDisplay = tip.stats.foulsPerGame !== null
+    ? `<span class="stat-value highlight">${tip.stats.foulsPerGame}</span>`
+    : `<span class="stat-value">—</span>`;
+
+  return `
+    <article class="tip-card ${confClass}" id="tip-${idx}">
+      <div class="card-header">
+        <div class="tip-index">${idx + 1}</div>
+        <span class="conf-badge ${confClass}">${tip.confidence} CONFIDENCE</span>
+      </div>
+
+      <div>
+        <div class="player-name">${tip.playerName}</div>
+        <div class="player-meta">
+          <span class="club-tag">${tip.club}</span>
+          <span class="pos-tag">${tip.position}</span>
+          <span class="league-tag">${tip.league}</span>
+        </div>
+      </div>
+
+      <div class="match-box">
+        <div class="match-title">${tip.match}</div>
+        <div class="match-context">${tip.context}</div>
+        <div class="match-kickoff">⏱ Kick-off: ${tip.kickOff}</div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-chip">
+          <span class="stat-label">Yellows (season)</span>
+          <span class="stat-value highlight">${tip.stats.yellowsThisSeason}</span>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-label">Cards / 90</span>
+          <span class="stat-value">${tip.stats.cardsPer90}</span>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-label">Appearances</span>
+          <span class="stat-value">${tip.stats.appearances}</span>
+        </div>
+        <div class="stat-chip">
+          <span class="stat-label">Fouls / 90</span>
+          ${foulsDisplay}
+        </div>
+      </div>
+
+      <div class="referee-row">
+        <span class="ref-icon">🏴</span>
+        <span>Referee:</span>
+        <span class="ref-name">${tip.referee.name}</span>
+        ${refAvgHtml}
+      </div>
+
+      <p class="analysis">${tip.analysis}</p>
+
+      <div class="card-footer">
+        ${buildOddsBlock(tip)}
+        <button class="copy-btn" onclick="buildCopy(${idx})" title="Copy tip to clipboard">
+          📋 Copy Tip
+        </button>
+        <span id="copy-feedback-${idx}" class="copy-feedback">✓ Copied!</span>
+      </div>
+    </article>`;
+}
+
+/* ─── buildCopy ─── */
+function buildCopy(idx) {
+  const allTips = [...TIPS.today, ...TIPS.tomorrow];
+  const tip = allTips[idx];
+  if (!tip) return;
+
+  const oddsLine = tip.boyleSportsOdds
+    ? `Odds: ${tip.boyleSportsOdds} (BoyleSports)`
+    : `Odds: Check BoyleSports → ${tip.boyleSportsUrl}`;
+
+  const refLine = tip.referee.avgCardsPerGame
+    ? `${tip.referee.name} (avg ${tip.referee.avgCardsPerGame} cards/game)`
+    : `${tip.referee.name}`;
+
+  const text = [
+    `🟨 YELLOW CARD TIP — ${tip.confidence} CONFIDENCE`,
+    ``,
+    `Player : ${tip.playerName} | ${tip.club} | ${tip.position}`,
+    `Match  : ${tip.match} (${tip.league})`,
+    `Kick-off: ${tip.kickOff}`,
+    `Context: ${tip.context}`,
+    ``,
+    `Stats  : ${tip.stats.yellowsThisSeason} yellows this season | Cards/90: ${tip.stats.cardsPer90} | Apps: ${tip.stats.appearances}`,
+    `Referee: ${refLine}`,
+    ``,
+    `Analysis: ${tip.analysis}`,
+    ``,
+    oddsLine,
+    ``,
+    `Generated: ${GENERATED_DATE}`,
+    `⚠️ 18+ | Please gamble responsibly. BeGambleAware.org`
+  ].join('\n');
+
+  const showFeedback = () => {
+    const fb = document.getElementById(`copy-feedback-${idx}`);
+    if (fb) { fb.style.display = 'inline'; setTimeout(() => { fb.style.display = 'none'; }, 2000); }
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(showFeedback).catch(() => fallbackCopy(text, showFeedback));
+  } else {
+    fallbackCopy(text, showFeedback);
+  }
+}
+
+function fallbackCopy(text, cb) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try { document.execCommand('copy'); cb(); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+/* ─── render ─── */
+function render() {
+  const app = document.getElementById('app');
+  const todayCount  = TIPS.today.length;
+  const tomorrowCount = TIPS.tomorrow.length;
+  let html = '';
+
+  if (todayCount > 0) {
+    html += `
+      <div class="section-header">
+        <h2>TODAY</h2>
+        <span class="section-count">${todayCount} Tips</span>
+        <span class="section-date">Wednesday 15 April 2026</span>
+      </div>
+      <div class="tips-grid">`;
+    TIPS.today.forEach((tip, i) => { html += buildCard(tip, i); });
+    html += '</div>';
+  }
+
+  if (tomorrowCount > 0) {
+    html += `
+      <div class="section-header">
+        <h2>TOMORROW</h2>
+        <span class="section-count">${tomorrowCount} Tips</span>
+        <span class="section-date">Thursday 16 April 2026</span>
+      </div>
+      <div class="tips-grid">`;
+    TIPS.tomorrow.forEach((tip, i) => { html += buildCard(tip, todayCount + i); });
+    html += '</div>';
+  }
+
+  app.innerHTML = html;
+}
+
+render();
+</script>
+</body>
+</html>
