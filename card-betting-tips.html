@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yellow Card Booking Tips | BetBuilder</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0f1117;
+      --surface:   #1a1d27;
+      --surface2:  #222638;
+      --border:    #2e3248;
+      --accent:    #f5a623;
+      --accent2:   #e0941a;
+      --text:      #e8eaf2;
+      --muted:     #7c82a0;
+      --green:     #27ae60;
+      --amber:     #f39c12;
+      --red:       #e74c3c;
+      --green-bg:  rgba(39,174,96,0.15);
+      --amber-bg:  rgba(243,156,18,0.15);
+      --red-bg:    rgba(231,76,60,0.15);
+      --ucl:       #1565c0;
+      --uel:       #6a0dad;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+    .logo-text span { color: var(--accent); }
+    .header-meta { text-align: right; }
+    .header-meta .generated { font-size: 12px; color: var(--muted); }
+    .header-meta .tagline { font-size: 13px; font-weight: 600; color: var(--accent); }
+
+    /* ── Layout ── */
+    .container { max-width: 980px; margin: 0 auto; padding: 28px 16px 48px; }
+
+    .section-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px; margin-top: 32px;
+    }
+    .section-header:first-child { margin-top: 0; }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .section-date {
+      font-size: 17px; font-weight: 700; color: var(--text);
+    }
+    .section-line { flex: 1; height: 1px; background: var(--border); }
+
+    /* ── Tip Card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 18px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--accent); }
+
+    .card-header {
+      padding: 16px 20px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .match-info { flex: 1 1 auto; min-width: 0; }
+    .match-name {
+      font-size: 16px; font-weight: 700;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .match-meta {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 5px; flex-wrap: wrap;
+    }
+    .league-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+      padding: 2px 7px; border-radius: 4px; text-transform: uppercase;
+    }
+    .league-ucl { background: rgba(21,101,192,0.25); color: #64b5f6; border: 1px solid rgba(21,101,192,0.4); }
+    .league-uel { background: rgba(106,13,173,0.25); color: #ce93d8; border: 1px solid rgba(106,13,173,0.4); }
+    .kickoff {
+      font-size: 12px; color: var(--muted);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .kickoff::before { content: "⏱"; font-size: 11px; }
+    .context-pill {
+      font-size: 11px; color: #9fa8da;
+      background: rgba(63,81,181,0.15); border: 1px solid rgba(63,81,181,0.3);
+      padding: 2px 8px; border-radius: 20px;
+    }
+
+    .confidence-block { flex-shrink: 0; text-align: right; }
+    .confidence-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+      padding: 4px 10px; border-radius: 20px; text-transform: uppercase;
+    }
+    .conf-HIGH   { background: var(--green-bg); color: var(--green); border: 1px solid rgba(39,174,96,0.4); }
+    .conf-MEDIUM { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(243,156,18,0.4); }
+    .conf-LOW    { background: var(--red-bg);   color: var(--red);   border: 1px solid rgba(231,76,60,0.4); }
+    .conf-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .conf-HIGH .conf-dot   { background: var(--green); }
+    .conf-MEDIUM .conf-dot { background: var(--amber); }
+    .conf-LOW .conf-dot    { background: var(--red); }
+
+    /* ── Card Body ── */
+    .card-body { padding: 16px 20px; }
+    .player-row {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
+    }
+    .player-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .player-info .player-name { font-size: 17px; font-weight: 700; }
+    .player-info .player-sub {
+      font-size: 12px; color: var(--muted); margin-top: 2px;
+    }
+    .tip-type-tag {
+      margin-left: auto; flex-shrink: 0;
+      font-size: 11px; font-weight: 600;
+      padding: 3px 10px; border-radius: 6px;
+      background: rgba(245,166,35,0.12);
+      border: 1px solid rgba(245,166,35,0.35);
+      color: var(--accent);
+    }
+
+    /* Stats row */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 540px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    .stat-cell {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+    .stat-value { font-size: 18px; font-weight: 700; color: var(--accent); }
+    .stat-value.null-val { font-size: 14px; color: var(--muted); }
+    .stat-label { font-size: 10px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* Referee + Odds row */
+    .bottom-row {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .ref-block, .odds-block {
+      flex: 1 1 200px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .ref-icon, .odds-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+    .ref-icon { background: rgba(63,81,181,0.2); }
+    .odds-icon { background: rgba(245,166,35,0.15); }
+    .ref-details, .odds-details { min-width: 0; }
+    .ref-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ref-avg { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .ref-avg strong { color: var(--accent); }
+    .odds-label { font-size: 11px; color: var(--muted); }
+    .odds-value { font-size: 16px; font-weight: 700; color: var(--accent); margin-top: 1px; }
+    .odds-value.null-odds { font-size: 12px; color: var(--muted); font-weight: 400; }
+    .odds-link {
+      margin-left: auto; flex-shrink: 0;
+      font-size: 11px; font-weight: 600;
+      padding: 5px 10px; border-radius: 6px;
+      background: var(--accent);
+      color: #000;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .odds-link:hover { background: var(--accent2); }
+
+    /* Analysis */
+    .analysis {
+      font-size: 13px; color: #b0b8d0;
+      line-height: 1.6;
+      padding: 12px 14px;
+      background: var(--surface2);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* Copy button */
+    .copy-row { display: flex; justify-content: flex-end; margin-top: 12px; }
+    .copy-btn {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.4px;
+      padding: 5px 12px; border-radius: 6px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .copy-btn.copied { border-color: var(--green); color: var(--green); }
+
+    /* ── Summary strip ── */
+    .summary-strip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .summary-item { display: flex; flex-direction: column; align-items: center; }
+    .summary-val { font-size: 22px; font-weight: 800; color: var(--accent); }
+    .summary-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; }
+    .summary-div { width: 1px; height: 40px; background: var(--border); }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .footer strong { color: var(--amber); }
+    .footer a { color: var(--amber); text-decoration: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .card-header { flex-direction: column; }
+      .confidence-block { text-align: left; }
+      .player-row { flex-wrap: wrap; }
+      .tip-type-tag { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">🟨</div>
+    <div class="logo-text">Bet<span>Builder</span></div>
+  </div>
+  <div class="header-meta">
+    <div class="tagline">Yellow Card Booking Tips</div>
+    <div class="generated" id="generatedDate"></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Summary strip -->
+  <div class="summary-strip" id="summaryStrip"></div>
+
+  <!-- Tips injected here -->
+  <div id="tipsRoot"></div>
+
+</div>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<div class="footer">
+  <strong>⚠ Responsible Gambling Notice</strong><br>
+  These tips are for informational and entertainment purposes only. Gambling should be fun — only bet what you can afford to lose.
+  If gambling is affecting you or someone you know, please seek help:
+  <a href="https://www.begambleaware.org" target="_blank" rel="noopener">BeGambleAware.org</a> |
+  <a href="https://www.gamcare.org.uk" target="_blank" rel="noopener">GamCare</a> |
+  National Helpline: <strong>0808 8020 133</strong><br><br>
+  Odds shown are indicative only. Always verify with your bookmaker before placing bets. 18+. T&amp;Cs apply.
+  BetBuilder accepts no liability for losses incurred as a result of acting on this information.
+</div>
+
+<script>
+/* ═══════════════════════ DATA ═══════════════════════ */
+
+const GENERATED_DATE = "15 April 2026, 07:45 BST";
+
+const TIPS = {
+  today: [
+    {
+      match:          "Arsenal vs Sporting CP",
+      league:         "UCL",
+      kickOff:        "20:00 BST",
+      context:        "QF 2nd Leg — Arsenal leads 1-0 on aggregate",
+      playerName:     "Morten Hjulmand",
+      club:           "Sporting CP",
+      position:       "CDM",
+      tipType:        "To Be Booked",
+      confidence:     "MEDIUM",
+      boyleSportsOdds: null,
+      boyleSportsUrl:  "https://www.boylesports.com/sports/football/event/uefa-champions-league/arsenal-v-sporting-cp",
+      stats: {
+        yellowsThisSeason: 7,
+        foulsPerGame:      null,
+        cardsPer90:        0.32,
+        appearances:       22
+      },
+      referee: {
+        name:            "François Letexier",
+        avgCardsPerGame: 4.39
+      },
+      analysis: "Hjulmand anchors Sporting's midfield and faces the unenviable task of breaking up Arsenal's counter-attacks at the Emirates while his side trail 1-0. Seven domestic yellow cards this season reveal a combative, uncompromising style that doesn't pick its spots. With François Letexier — averaging a huge 4.39 cards per game in 2025-26 — officiating tonight, any over-zealous challenge in midfield is likely to draw a yellow. Desperate circumstances for Sporting make this the quintessential aggressive CDM booking tip."
+    },
+    {
+      match:          "Arsenal vs Sporting CP",
+      league:         "UCL",
+      kickOff:        "20:00 BST",
+      context:        "QF 2nd Leg — Arsenal leads 1-0 on aggregate",
+      playerName:     "Declan Rice",
+      club:           "Arsenal",
+      position:       "CDM",
+      tipType:        "To Be Booked",
+      confidence:     "MEDIUM",
+      boyleSportsOdds: null,
+      boyleSportsUrl:  "https://www.boylesports.com/sports/football/event/uefa-champions-league/arsenal-v-sporting-cp",
+      stats: {
+        yellowsThisSeason: 3,
+        foulsPerGame:      null,
+        cardsPer90:        0.34,
+        appearances:       9
+      },
+      referee: {
+        name:            "François Letexier",
+        avgCardsPerGame: 4.39
+      },
+      analysis: "Rice leads Arsenal's UCL booking tally this season with 3 yellows at 0.34 per 90 — the highest of any Arsenal player in Europe. He will be deployed as the defensive midfield shield tonight, tasked with snuffing out Sporting's attacking threat as they push for an equaliser. Letexier's trigger-happy card rate (4.39/game) means a single mistimed tackle in a high-octane second-leg atmosphere could see Rice reach the notebook. A solid each-way MEDIUM pick."
+    },
+    {
+      match:          "Bayern Munich vs Real Madrid",
+      league:         "UCL",
+      kickOff:        "20:00 BST",
+      context:        "QF 2nd Leg — Bayern leads 2-1 on aggregate",
+      playerName:     "Konrad Laimer",
+      club:           "Bayern Munich",
+      position:       "CM",
+      tipType:        "To Be Booked",
+      confidence:     "LOW",
+      boyleSportsOdds: null,
+      boyleSportsUrl:  "https://www.boylesports.com/sports/football/event/uefa-champions-league/bayern-munich-v-real-madrid",
+      stats: {
+        yellowsThisSeason: 6,
+        foulsPerGame:      0.92,
+        cardsPer90:        0.25,
+        appearances:       24
+      },
+      referee: {
+        name:            "Slavko Vinčić",
+        avgCardsPerGame: 2.71
+      },
+      analysis: "Laimer is Bayern's midfield engine — high-energy, relentless, and regularly involved in physical duels. Six Bundesliga yellow cards this season (0.92 fouls/game) show a player who is not shy about putting a foot in. Critically, he is on a yellow-card tightrope for UCL suspension, meaning any mistimed challenge tonight could cost him a semi-final place. Real Madrid need to score twice to go through, pushing Laimer into ever more contested battles. The main caveat is Vinčić, who averages only 2.71 cards per game in 2025-26, keeping this tip at LOW confidence."
+    }
+  ],
+  tomorrow: [
+    {
+      match:          "Nottingham Forest vs Porto",
+      league:         "UEL",
+      kickOff:        "20:00 BST",
+      context:        "QF 2nd Leg — 1-1 on aggregate (winner progresses)",
+      playerName:     "Ryan Yates",
+      club:           "Nottingham Forest",
+      position:       "CM",
+      tipType:        "To Be Booked",
+      confidence:     "MEDIUM",
+      boyleSportsOdds: null,
+      boyleSportsUrl:  "https://www.boylesports.com/sports/football/event/uefa-europa-league/nottingham-forest-v-porto",
+      stats: {
+        yellowsThisSeason: 2,
+        foulsPerGame:      null,
+        cardsPer90:        0.40,
+        appearances:       4
+      },
+      referee: {
+        name:            "Danny Makkelie",
+        avgCardsPerGame: 3.12
+      },
+      analysis: "With the tie perfectly balanced at 1-1 on aggregate, the City Ground will be a cauldron on Thursday night. Yates is Forest's combative midfield warrior — the player who sets the physical tone for Nuno's side. His 0.40 cards per 90 in UEL this season sits exactly on our HIGH confidence threshold. In an all-or-nothing second leg at home, expect Yates to compete for every inch of the pitch. Makkelie averages 3.12 cards per game and will have his work cut out managing a ferocious, win-or-go-home fixture. Compelling MEDIUM tip."
+    }
+  ]
+};
+
+/* ═══════════════════════ HELPERS ═══════════════════════ */
+
+function leagueBadge(league) {
+  if (league === "UCL") return `<span class="league-badge league-ucl">UCL</span>`;
+  if (league === "UEL") return `<span class="league-badge league-uel">UEL</span>`;
+  return `<span class="league-badge">${league}</span>`;
+}
+
+function playerEmoji(position) {
+  const map = { CDM: "🛡️", CM: "⚡", CB: "🧱", RB: "🏃", LB: "🏃", ST: "⚽", CF: "⚽", AMF: "🎯" };
+  return map[position] || "👤";
+}
+
+function confLabel(c) {
+  if (c === "HIGH")   return "🟢 High";
+  if (c === "MEDIUM") return "🟡 Medium";
+  return "🔴 Low";
+}
+
+/* buildOddsBlock — renders the BoyleSports odds/link block */
+function buildOddsBlock(tip) {
+  const oddsHtml = tip.boyleSportsOdds
+    ? `<div class="odds-value">${tip.boyleSportsOdds}</div>`
+    : `<div class="odds-value null-odds">Odds not priced / check site</div>`;
+
+  return `
+    <div class="odds-block">
+      <div class="odds-icon">📊</div>
+      <div class="odds-details">
+        <div class="odds-label">BoyleSports — To Be Booked</div>
+        ${oddsHtml}
+      </div>
+      <a class="odds-link" href="${tip.boyleSportsUrl}" target="_blank" rel="noopener">
+        View Odds →
+      </a>
+    </div>`;
+}
+
+/* buildCard — renders a single tip card */
+function buildCard(tip, idx) {
+  const s = tip.stats;
+
+  const statCells = [
+    { val: s.yellowsThisSeason,                  lbl: "Yellows (Season)" },
+    { val: s.foulsPerGame !== null ? s.foulsPerGame.toFixed(2) : null, lbl: "Fouls / Game" },
+    { val: s.cardsPer90 !== null  ? s.cardsPer90.toFixed(2)  : null, lbl: "Cards / 90" },
+    { val: s.appearances,                        lbl: "Appearances" }
+  ].map(c => {
+    const isNull = c.val === null || c.val === undefined;
+    return `
+      <div class="stat-cell">
+        <div class="stat-value ${isNull ? "null-val" : ""}">${isNull ? "N/A" : c.val}</div>
+        <div class="stat-label">${c.lbl}</div>
+      </div>`;
+  }).join("");
+
+  return `
+  <div class="card" id="card-${idx}">
+    <div class="card-header">
+      <div class="match-info">
+        <div class="match-name">${tip.match}</div>
+        <div class="match-meta">
+          ${leagueBadge(tip.league)}
+          <span class="kickoff">${tip.kickOff}</span>
+          <span class="context-pill">${tip.context}</span>
+        </div>
+      </div>
+      <div class="confidence-block">
+        <div class="confidence-badge conf-${tip.confidence}">
+          <span class="conf-dot"></span>
+          ${tip.confidence} CONFIDENCE
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="player-row">
+        <div class="player-avatar">${playerEmoji(tip.position)}</div>
+        <div class="player-info">
+          <div class="player-name">${tip.playerName}</div>
+          <div class="player-sub">${tip.club} &middot; ${tip.position}</div>
+        </div>
+        <div class="tip-type-tag">🟨 ${tip.tipType}</div>
+      </div>
+
+      <div class="stats-grid">${statCells}</div>
+
+      <div class="bottom-row">
+        <div class="ref-block">
+          <div class="ref-icon">🏁</div>
+          <div class="ref-details">
+            <div class="ref-name">${tip.referee.name}</div>
+            <div class="ref-avg">Avg cards/game: <strong>${tip.referee.avgCardsPerGame.toFixed(2)}</strong></div>
+          </div>
+        </div>
+        ${buildOddsBlock(tip)}
+      </div>
+
+      <div class="analysis">${tip.analysis}</div>
+
+      <div class="copy-row">
+        <button class="copy-btn" onclick="buildCopy(${idx})">📋 Copy Tip</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* buildCopy — copies a formatted text summary to the clipboard */
+function buildCopy(idx) {
+  // Find tip by iterating all tips with their global index
+  const allTips = [...TIPS.today, ...TIPS.tomorrow];
+  const tip = allTips[idx];
+  if (!tip) return;
+
+  const s = tip.stats;
+  const text =
+`🟨 YELLOW CARD BOOKING TIP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Player: ${tip.playerName} (${tip.club})
+Match:  ${tip.match}
+League: ${tip.league} | Kick-off: ${tip.kickOff}
+Context: ${tip.context}
+Confidence: ${tip.confidence}
+
+📊 Stats
+• Yellows this season: ${s.yellowsThisSeason ?? "N/A"}
+• Fouls per game: ${s.foulsPerGame !== null ? s.foulsPerGame : "N/A"}
+• Cards per 90: ${s.cardsPer90 !== null ? s.cardsPer90 : "N/A"}
+• Appearances: ${s.appearances ?? "N/A"}
+
+🏁 Referee: ${tip.referee.name} (${tip.referee.avgCardsPerGame} cards/game avg)
+
+📝 ${tip.analysis}
+
+🎰 BoyleSports: ${tip.boyleSportsUrl}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Generated: ${GENERATED_DATE} | BetBuilder — 18+ | BeGambleAware.org`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector(`#card-${idx} .copy-btn`);
+    if (btn) {
+      btn.textContent = "✓ Copied!";
+      btn.classList.add("copied");
+      setTimeout(() => { btn.textContent = "📋 Copy Tip"; btn.classList.remove("copied"); }, 2000);
+    }
+  }).catch(() => {
+    alert("Copy failed — please copy manually.");
+  });
+}
+
+/* ═══════════════════════ RENDER ═══════════════════════ */
+
+document.getElementById("generatedDate").textContent = "Generated: " + GENERATED_DATE;
+
+function renderSection(label, dateStr, tips, startIdx) {
+  if (!tips || tips.length === 0) return "";
+  const cards = tips.map((t, i) => buildCard(t, startIdx + i)).join("");
+  return `
+  <div class="section-header">
+    <div>
+      <div class="section-label">${label}</div>
+      <div class="section-date">${dateStr}</div>
+    </div>
+    <div class="section-line"></div>
+  </div>
+  ${cards}`;
+}
+
+const root = document.getElementById("tipsRoot");
+root.innerHTML =
+  renderSection("Today's Tips", "Wednesday, 15 April 2026", TIPS.today, 0) +
+  renderSection("Tomorrow's Tips", "Thursday, 16 April 2026", TIPS.tomorrow, TIPS.today.length);
+
+/* ── Summary strip ── */
+(function buildSummary() {
+  const all = [...TIPS.today, ...TIPS.tomorrow];
+  const counts = { HIGH: 0, MEDIUM: 0, LOW: 0 };
+  all.forEach(t => counts[t.confidence]++);
+  const strip = document.getElementById("summaryStrip");
+  strip.innerHTML = `
+    <div class="summary-item">
+      <span class="summary-val">${all.length}</span>
+      <span class="summary-lbl">Total Tips</span>
+    </div>
+    <div class="summary-div"></div>
+    <div class="summary-item">
+      <span class="summary-val" style="color:var(--green)">${counts.HIGH}</span>
+      <span class="summary-lbl">🟢 High</span>
+    </div>
+    <div class="summary-div"></div>
+    <div class="summary-item">
+      <span class="summary-val" style="color:var(--amber)">${counts.MEDIUM}</span>
+      <span class="summary-lbl">🟡 Medium</span>
+    </div>
+    <div class="summary-div"></div>
+    <div class="summary-item">
+      <span class="summary-val" style="color:var(--red)">${counts.LOW}</span>
+      <span class="summary-lbl">🔴 Low</span>
+    </div>
+    <div class="summary-div"></div>
+    <div class="summary-item">
+      <span class="summary-val">${TIPS.today.length}</span>
+      <span class="summary-lbl">Today</span>
+    </div>
+    <div class="summary-div"></div>
+    <div class="summary-item">
+      <span class="summary-val">${TIPS.tomorrow.length}</span>
+      <span class="summary-lbl">Tomorrow</span>
+    </div>`;
+})();
+</script>
+</body>
+</html>
