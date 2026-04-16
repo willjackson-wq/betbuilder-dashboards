@@ -15,12 +15,6 @@
       --text: #e8eaf0;
       --muted: #7a7f9a;
       --border: #2c3050;
-      --green: #27ae60;
-      --amber: #e67e22;
-      --red: #e74c3c;
-      --green-bg: rgba(39,174,96,0.15);
-      --amber-bg: rgba(230,126,34,0.15);
-      --red-bg: rgba(231,76,60,0.15);
     }
     body {
       background: var(--bg);
@@ -167,7 +161,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent);
       flex-shrink: 0;
     }
     .player-info .player-name {
@@ -179,40 +175,14 @@
     .player-info .player-meta {
       font-size: 0.68rem;
       color: var(--muted);
-    }
-    /* Confidence badge */
-    .confidence-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .conf-badge {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      padding: 3px 9px;
-      border-radius: 20px;
-    }
-    .conf-HIGH {
-      background: var(--green-bg);
-      color: var(--green);
-      border: 1px solid var(--green);
-    }
-    .conf-MEDIUM {
-      background: var(--amber-bg);
-      color: var(--amber);
-      border: 1px solid var(--amber);
-    }
-    .conf-LOW {
-      background: var(--red-bg);
-      color: var(--red);
-      border: 1px solid var(--red);
+      margin-top: 2px;
     }
     .tip-type-label {
-      font-size: 0.68rem;
+      font-size: 0.67rem;
       color: var(--muted);
       font-weight: 600;
       letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
     /* Stats grid */
     .stats-grid {
@@ -346,10 +316,9 @@
       margin-bottom: 12px;
       font-size: 0.72rem;
     }
-    .gamble-warning strong { color: var(--amber); }
+    .gamble-warning strong { color: #e67e22; }
 
     @media (max-width: 500px) {
-      .stats-grid { grid-template-columns: repeat(3, 1fr); }
       .tip-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -359,7 +328,7 @@
 <header class="site-header">
   <h1>Yellow Card Booking Tips</h1>
   <p class="sub">UEFA Europa League Quarter-Finals &amp; Serie A</p>
-  <span class="generated-badge" id="gen-date">GENERATED: 16 Apr 2026 — loading...</span>
+  <span class="generated-badge" id="gen-date">GENERATED: 16 Apr 2026</span>
 </header>
 
 <main class="main">
@@ -372,14 +341,10 @@
   <div class="gamble-warning">
     <strong>Responsible Gambling Notice:</strong> These tips are for informational and entertainment purposes only. Gambling involves risk — never bet more than you can afford to lose. If gambling is affecting your life, contact <strong>GamCare: 0808 8020 133</strong> or visit <strong>begambleaware.org</strong>. 18+. Please gamble responsibly.
   </div>
-  <p>Tips compiled from verified public statistics. Odds reflect market availability at time of generation. BoyleSports odds unavailable at generation time — check site for current prices.</p>
-  <p style="margin-top:6px;">BetBuilder Dashboards &mdash; For research purposes only.</p>
+  <p>Tips compiled from verified public statistics. Odds sourced from Oddschecker — check site for latest prices. BetBuilder Dashboards &mdash; for research purposes only.</p>
 </footer>
 
 <script>
-// ─────────────────────────────────────────────────
-//  DATA
-// ─────────────────────────────────────────────────
 const GENERATED_DATE = "Thu 16 Apr 2026, 12:00 BST";
 
 const TIPS = {
@@ -393,9 +358,8 @@ const TIPS = {
       club: "Celta Vigo",
       position: "CM",
       tipType: "Player To Be Booked",
-      confidence: "MEDIUM",
-      boyleSportsOdds: null,
-      boyleSportsUrl: "https://www.boylesports.com/sports/football/event/uefa-europa-league/celta-vigo-v-sc-freiburg",
+      oddsCheckerOdds: null,
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/celta-vigo-v-sc-freiburg/player-booked",
       stats: {
         yellowsThisSeason: 5,
         foulsPerGame: 1.09,
@@ -406,7 +370,7 @@ const TIPS = {
         name: "Anthony Taylor (ENG)",
         avgCardsPerGame: 3.81
       },
-      analysis: "Guinean international central midfielder with 5 La Liga bookings this season. Celta face a near-impossible 3-goal aggregate deficit, forcing their players into a frantic, physical style. In desperation mode the mid-press intensifies and rash challenges multiply. Anthony Taylor is one of England's strictest referees, averaging 3.81 cards per game in 2025–26, meaning loose challenges will be punished."
+      analysis: "Guinean international CM with 5 La Liga bookings this season. Celta face a near-impossible 3-goal aggregate deficit, forcing their players into a frantic, physical style. In desperation mode the mid-press intensifies and rash challenges multiply. Anthony Taylor averaged 3.81 cards per game in 2025–26, meaning loose challenges will be punished."
     },
     {
       match: "Aston Villa vs Bologna",
@@ -417,9 +381,8 @@ const TIPS = {
       club: "Bologna",
       position: "CM",
       tipType: "Player To Be Booked",
-      confidence: "MEDIUM",
-      boyleSportsOdds: null,
-      boyleSportsUrl: "https://www.boylesports.com/sports/football/event/uefa-europa-league/aston-villa-v-bologna",
+      oddsCheckerOdds: null,
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/aston-villa-v-bologna/player-booked",
       stats: {
         yellowsThisSeason: 3,
         foulsPerGame: 1.05,
@@ -430,7 +393,7 @@ const TIPS = {
         name: "José María Sánchez (ESP)",
         avgCardsPerGame: 4.13
       },
-      analysis: "Veteran Swiss international renowned for his combative pressing style. Bologna need two goals at Villa Park to level the tie — a scenario that demands intensity and physical commitment from their engine room. Freuler will be pushing the tempo hard, and frustrated challenges on Villa's counter-attack are likely. Spanish referee José María Sánchez averages a high 4.13 cards per game across all competitions."
+      analysis: "Veteran Swiss international renowned for his combative pressing style. Bologna need two goals at Villa Park — a scenario that demands intensity from their engine room. Freuler will push the tempo hard and frustrated challenges on Villa's counter-attack are likely. Spanish referee José María Sánchez averages 4.13 cards per game across all competitions in 2025–26."
     },
     {
       match: "Nottingham Forest vs FC Porto",
@@ -441,9 +404,8 @@ const TIPS = {
       club: "FC Porto",
       position: "CDM",
       tipType: "Player To Be Booked",
-      confidence: "MEDIUM",
-      boyleSportsOdds: null,
-      boyleSportsUrl: "https://www.boylesports.com/sports/football/event/uefa-europa-league/nottingham-forest-v-fc-porto",
+      oddsCheckerOdds: null,
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/nottingham-forest-v-porto/player-booked",
       stats: {
         yellowsThisSeason: 9,
         foulsPerGame: null,
@@ -454,20 +416,19 @@ const TIPS = {
         name: "Danny Makkelie (NED)",
         avgCardsPerGame: 3.12
       },
-      analysis: "Argentine defensive midfielder who is Porto's first-line ball winner. In 26 Liga Portugal appearances he has accumulated 8 yellow cards this season — one of the highest at the club — plus 1 in the Europa League. With the tie level, Porto must score away from home at a raucous City Ground. Varela will need to break up play aggressively, increasing exposure to bookings. Makkelie is a disciplined official who penalises tactical fouls."
+      analysis: "Argentine CDM and Porto's first-line ball winner. He has accumulated 8 yellow cards in 26 Liga Portugal appearances this season — one of the highest at the club — plus 1 in the Europa League. With the tie level, Porto must score away at a raucous City Ground. Varela will need to break up play aggressively, increasing his exposure to bookings."
     },
     {
       match: "Real Betis vs Braga",
       league: "UEFA Europa League",
       kickOff: "20:00",
-      context: "QF 2nd leg — Level 1–1 on agg after Grillitsch/Cucho Hernández (pen) in Braga",
+      context: "QF 2nd leg — Level 1–1 on agg after Grillitsch / Cucho Hernández pen in Braga",
       playerName: "Sofyan Amrabat",
       club: "Real Betis",
       position: "CDM",
       tipType: "Player To Be Booked",
-      confidence: "HIGH",
-      boyleSportsOdds: null,
-      boyleSportsUrl: "https://www.boylesports.com/sports/football/event/uefa-europa-league/real-betis-v-braga",
+      oddsCheckerOdds: null,
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/real-betis-v-braga/player-booked",
       stats: {
         yellowsThisSeason: 3,
         foulsPerGame: 1.50,
@@ -478,7 +439,7 @@ const TIPS = {
         name: "Davide Massa (ITA)",
         avgCardsPerGame: 5.00
       },
-      analysis: "Moroccan World Cup warrior on loan from Fenerbahçe — Amrabat is the archetypal combative CDM. He averages 1.50 fouls per 90 minutes in La Liga and has 3 bookings in just 8 starts, reflecting an aggressive pressing style. With the tie perfectly balanced at 1–1, both teams will fight for every inch of midfield space in front of 53,000 fans at La Cartuja de Sevilla. Davide Massa is one of the most card-happy referees in European football this season (5.0 per game in Serie A), making Amrabat a standout HIGH-confidence booking tip."
+      analysis: "Moroccan World Cup warrior on loan from Fenerbahçe — Amrabat is the archetypal combative CDM. He averages 1.50 fouls per 90 in La Liga and has 3 bookings in just 8 starts. With the tie perfectly balanced at 1–1, both sides will fight for every inch of midfield space in front of 53,000 fans at La Cartuja de Sevilla. Davide Massa averages 5.0 cards per game in Serie A 2025–26, one of the highest rates in European football."
     }
   ],
   tomorrow: [
@@ -491,9 +452,8 @@ const TIPS = {
       club: "Inter Milan",
       position: "CM",
       tipType: "Player To Be Booked",
-      confidence: "MEDIUM",
-      boyleSportsOdds: null,
-      boyleSportsUrl: "https://www.boylesports.com/sports/football/event/serie-a/inter-milan-v-cagliari",
+      oddsCheckerOdds: null,
+      oddsCheckerUrl: "https://www.oddschecker.com/football/italian-serie-a/inter-milan-v-cagliari/player-booked",
       stats: {
         yellowsThisSeason: 5,
         foulsPerGame: 1.37,
@@ -504,43 +464,30 @@ const TIPS = {
         name: "Matteo Marchetti (ITA)",
         avgCardsPerGame: 4.13
       },
-      analysis: "Italy's most dynamic box-to-box midfielder is a reliable yellow card accumulator: 5 bookings in 25 Serie A appearances and 1.37 fouls per 90. Barella's intensity against a combative Cagliari side fighting for survival ensures physical duels. Matteo Marchetti averages 4.13 cards per game, one of the more card-happy Serie A officials, giving additional backing. A classic \"high-energy versus desperate\" scenario that historically generates disciplinary incidents."
+      analysis: "Italy's most dynamic box-to-box midfielder collects yellow cards regularly — 5 bookings in 25 Serie A appearances and 1.37 fouls per 90. Against a combative Cagliari side fighting for survival, Barella's intensity ensures physical duels throughout. Matteo Marchetti averages 4.13 cards per game in Serie A, one of the more card-heavy officials in the division."
     }
   ]
 };
 
-// ─────────────────────────────────────────────────
-//  HELPERS
-// ─────────────────────────────────────────────────
+// ── buildOddsBlock ──────────────────────────────
 function buildOddsBlock(tip) {
-  if (tip.boyleSportsOdds) {
-    return `<a href="${tip.boyleSportsUrl}" target="_blank" rel="noopener" class="odds-btn">
-      BoyleSports: ${tip.boyleSportsOdds}
+  if (tip.oddsCheckerOdds) {
+    return `<a href="${tip.oddsCheckerUrl}" target="_blank" rel="noopener" class="odds-btn">
+      Oddschecker: ${tip.oddsCheckerOdds}
     </a>`;
   }
-  return `<a href="${tip.boyleSportsUrl}" target="_blank" rel="noopener" class="odds-btn-null">
-    Check BoyleSports for odds &rarr;
+  return `<a href="${tip.oddsCheckerUrl}" target="_blank" rel="noopener" class="odds-btn-null">
+    View odds on Oddschecker &rarr;
   </a>`;
 }
 
-function buildCopy(idx) {
-  // Zero-indexed: returns a concise shareable summary
-  const allTips = [...TIPS.today, ...TIPS.tomorrow];
-  const t = allTips[idx];
-  if (!t) return '';
-  const odds = t.boyleSportsOdds ? ` @ ${t.boyleSportsOdds}` : '';
-  return `[${t.confidence}] ${t.playerName} (${t.club}) — Player To Be Booked${odds}\n${t.match} | ${t.kickOff} BST | ${t.league}`;
-}
-
+// ── buildCard ───────────────────────────────────
 function buildCard(tip, idx) {
-  const confClass = `conf-${tip.confidence}`;
-  const confLabel = tip.confidence === 'HIGH' ? 'HIGH CONFIDENCE' : tip.confidence === 'MEDIUM' ? 'MEDIUM CONFIDENCE' : 'LOW CONFIDENCE';
-
   const foulsStat = tip.stats.foulsPerGame !== null
     ? tip.stats.foulsPerGame.toFixed(2)
     : 'N/A';
 
-  const initials = tip.playerName.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+  const initials = tip.playerName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
 
   const statsHtml = `
     <div class="stats-grid">
@@ -589,10 +536,7 @@ function buildCard(tip, idx) {
         </div>
         <div class="idx-badge" style="margin-left:auto;">${idx + 1}</div>
       </div>
-      <div class="confidence-row">
-        <span class="conf-badge ${confClass}">${confLabel}</span>
-        <span class="tip-type-label">${tip.tipType}</span>
-      </div>
+      <div class="tip-type-label">${tip.tipType}</div>
       ${statsHtml}
       ${refHtml}
       <p class="analysis-text">${tip.analysis}</p>
@@ -603,14 +547,19 @@ function buildCard(tip, idx) {
   </article>`;
 }
 
-// ─────────────────────────────────────────────────
-//  RENDER
-// ─────────────────────────────────────────────────
+// ── buildCopy ───────────────────────────────────
+function buildCopy(idx) {
+  const allTips = [...TIPS.today, ...TIPS.tomorrow];
+  const t = allTips[idx];
+  if (!t) return '';
+  const odds = t.oddsCheckerOdds ? ` @ ${t.oddsCheckerOdds}` : '';
+  return `${t.playerName} (${t.club}) — Player To Be Booked${odds}\n${t.match} | ${t.kickOff} BST | ${t.league}`;
+}
+
+// ── render ──────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function () {
-  // Set generated date
   document.getElementById('gen-date').textContent = 'GENERATED: ' + GENERATED_DATE;
 
-  // TODAY section
   const todayEl = document.getElementById('today-section');
   let todayHtml = `
     <div class="section-label">
@@ -618,13 +567,10 @@ document.addEventListener('DOMContentLoaded', function () {
       <span class="date-pill">Thu 16 Apr 2026</span>
     </div>
     <div class="tip-grid">`;
-  TIPS.today.forEach((tip, i) => {
-    todayHtml += buildCard(tip, i);
-  });
+  TIPS.today.forEach((tip, i) => { todayHtml += buildCard(tip, i); });
   todayHtml += '</div>';
   todayEl.innerHTML = todayHtml;
 
-  // TOMORROW section
   const tomorrowEl = document.getElementById('tomorrow-section');
   let tomorrowHtml = `
     <div class="section-label">
@@ -632,9 +578,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <span class="date-pill">Fri 17 Apr 2026</span>
     </div>
     <div class="tip-grid">`;
-  TIPS.tomorrow.forEach((tip, i) => {
-    tomorrowHtml += buildCard(tip, TIPS.today.length + i);
-  });
+  TIPS.tomorrow.forEach((tip, i) => { tomorrowHtml += buildCard(tip, TIPS.today.length + i); });
   tomorrowHtml += '</div>';
   tomorrowEl.innerHTML = tomorrowHtml;
 });
