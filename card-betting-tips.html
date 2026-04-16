@@ -149,7 +149,7 @@
     }
     .player-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 10px;
     }
     .player-avatar {
@@ -166,11 +166,16 @@
       color: var(--accent);
       flex-shrink: 0;
     }
-    .player-name {
+    .player-info .player-name {
       font-size: 0.95rem;
       font-weight: 700;
       color: var(--text);
       line-height: 1.2;
+    }
+    .player-info .player-meta {
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 2px;
     }
     .tip-type-label {
       font-size: 0.67rem;
@@ -277,6 +282,24 @@
       border: 1px solid var(--border);
     }
     .odds-btn-null:hover { border-color: var(--accent); color: var(--accent); }
+    .copy-btn {
+      display: block;
+      width: 100%;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      margin-top: 6px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .copy-btn.copied { border-color: #27ae60; color: #27ae60; }
     /* Index badge */
     .idx-badge {
       width: 22px;
@@ -352,9 +375,17 @@ const TIPS = {
       playerName: "Ilaix Moriba",
       tipType: "Player To Be Booked",
       oddsCheckerOdds: null,
-      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/celta-vigo-v-sc-freiburg/player-booked",
-      stats: { yellowsThisSeason: 5, foulsPerGame: 1.09, cardsPer90: 0.24, appearances: 28 },
-      referee: { name: "Anthony Taylor (ENG)", avgCardsPerGame: 3.81 },
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/celta-vigo-v-sc-freiburg/to-be-shown-a-card",
+      stats: {
+        yellowsThisSeason: 5,
+        foulsPerGame: 1.09,
+        cardsPer90: 0.24,
+        appearances: 28
+      },
+      referee: {
+        name: "Anthony Taylor (ENG)",
+        avgCardsPerGame: 3.81
+      },
       analysis: "Guinean international CM with 5 La Liga bookings this season. Celta face a near-impossible 3-goal aggregate deficit, forcing their players into a frantic, physical style. In desperation mode the mid-press intensifies and rash challenges multiply. Anthony Taylor averaged 3.81 cards per game in 2025\u201326, meaning loose challenges will be punished."
     },
     {
@@ -365,9 +396,17 @@ const TIPS = {
       playerName: "Remo Freuler",
       tipType: "Player To Be Booked",
       oddsCheckerOdds: null,
-      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/aston-villa-v-bologna/player-booked",
-      stats: { yellowsThisSeason: 3, foulsPerGame: 1.05, cardsPer90: 0.25, appearances: 11 },
-      referee: { name: "Jos\u00e9 Mar\u00eda S\u00e1nchez (ESP)", avgCardsPerGame: 4.13 },
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/aston-villa-v-bologna/to-be-shown-a-card",
+      stats: {
+        yellowsThisSeason: 3,
+        foulsPerGame: 1.05,
+        cardsPer90: 0.25,
+        appearances: 11
+      },
+      referee: {
+        name: "Jos\u00e9 Mar\u00eda S\u00e1nchez (ESP)",
+        avgCardsPerGame: 4.13
+      },
       analysis: "Veteran Swiss international renowned for his combative pressing style. Bologna need two goals at Villa Park \u2014 a scenario that demands intensity from their engine room. Freuler will push the tempo hard and frustrated challenges on Villa's counter-attack are likely. Spanish referee Jos\u00e9 Mar\u00eda S\u00e1nchez averages 4.13 cards per game across all competitions in 2025\u201326."
     },
     {
@@ -378,9 +417,17 @@ const TIPS = {
       playerName: "Alan Varela",
       tipType: "Player To Be Booked",
       oddsCheckerOdds: null,
-      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/nottingham-forest-v-porto/player-booked",
-      stats: { yellowsThisSeason: 9, foulsPerGame: null, cardsPer90: 0.36, appearances: 34 },
-      referee: { name: "Danny Makkelie (NED)", avgCardsPerGame: 3.12 },
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/nottingham-forest-v-porto/to-be-shown-a-card",
+      stats: {
+        yellowsThisSeason: 9,
+        foulsPerGame: null,
+        cardsPer90: 0.36,
+        appearances: 34
+      },
+      referee: {
+        name: "Danny Makkelie (NED)",
+        avgCardsPerGame: 3.12
+      },
       analysis: "Argentine CDM and Porto's first-line ball winner. He has accumulated 8 yellow cards in 26 Liga Portugal appearances this season \u2014 one of the highest at the club \u2014 plus 1 in the Europa League. With the tie level, Porto must score away at a raucous City Ground. Varela will need to break up play aggressively, increasing his exposure to bookings."
     },
     {
@@ -391,9 +438,17 @@ const TIPS = {
       playerName: "Sofyan Amrabat",
       tipType: "Player To Be Booked",
       oddsCheckerOdds: null,
-      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/real-betis-v-braga/player-booked",
-      stats: { yellowsThisSeason: 3, foulsPerGame: 1.50, cardsPer90: 0.39, appearances: 8 },
-      referee: { name: "Davide Massa (ITA)", avgCardsPerGame: 5.00 },
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/real-betis-v-braga/to-be-shown-a-card",
+      stats: {
+        yellowsThisSeason: 3,
+        foulsPerGame: 1.50,
+        cardsPer90: 0.39,
+        appearances: 8
+      },
+      referee: {
+        name: "Davide Massa (ITA)",
+        avgCardsPerGame: 5.00
+      },
       analysis: "Moroccan World Cup warrior on loan from Fenerbah\u00e7e \u2014 Amrabat is the archetypal combative CDM. He averages 1.50 fouls per 90 in La Liga and has 3 bookings in just 8 starts. With the tie perfectly balanced at 1\u20131, both sides will fight for every inch of midfield space in front of 53,000 fans at La Cartuja de Sevilla. Davide Massa averages 5.0 cards per game in Serie A 2025\u201326, one of the highest rates in European football."
     }
   ],
@@ -406,29 +461,31 @@ const TIPS = {
       playerName: "Nicol\u00f2 Barella",
       tipType: "Player To Be Booked",
       oddsCheckerOdds: null,
-      oddsCheckerUrl: "https://www.oddschecker.com/football/italian-serie-a/inter-milan-v-cagliari/player-booked",
-      stats: { yellowsThisSeason: 5, foulsPerGame: 1.37, cardsPer90: 0.24, appearances: 25 },
-      referee: { name: "Matteo Marchetti (ITA)", avgCardsPerGame: 4.13 },
+      oddsCheckerUrl: "https://www.oddschecker.com/football/italian-serie-a/inter-milan-v-cagliari/to-be-shown-a-card",
+      stats: {
+        yellowsThisSeason: 5,
+        foulsPerGame: 1.37,
+        cardsPer90: 0.24,
+        appearances: 25
+      },
+      referee: {
+        name: "Matteo Marchetti (ITA)",
+        avgCardsPerGame: 4.13
+      },
       analysis: "Italy's most dynamic box-to-box midfielder collects yellow cards regularly \u2014 5 bookings in 25 Serie A appearances and 1.37 fouls per 90. Against a combative Cagliari side fighting for survival, Barella's intensity ensures physical duels throughout. Matteo Marchetti averages 4.13 cards per game in Serie A, one of the more card-heavy officials in the division."
     }
   ]
 };
 
-function buildOddsBlock(tip) {
-  if (tip.oddsCheckerOdds) {
-    return '<a href="' + tip.oddsCheckerUrl + '" target="_blank" rel="noopener" class="odds-btn">Oddschecker: ' + tip.oddsCheckerOdds + '</a>';
-  }
-  return '<a href="' + tip.oddsCheckerUrl + '" target="_blank" rel="noopener" class="odds-btn-null">View odds on Oddschecker &rarr;</a>';
+// -- buildOddsBlock --
+function buildOddsBlock(tip, idx) {
+  var oddsLink = tip.oddsCheckerOdds
+    ? '<a href="' + tip.oddsCheckerUrl + '" target="_blank" rel="noopener" class="odds-btn">Oddschecker: ' + tip.oddsCheckerOdds + '</a>'
+    : '<a href="' + tip.oddsCheckerUrl + '" target="_blank" rel="noopener" class="odds-btn-null">View odds on Oddschecker \u2192</a>';
+  return oddsLink + '<button class="copy-btn" id="copy-btn-' + idx + '" onclick="buildCopy(' + idx + ')">Copy tip to clipboard</button>';
 }
 
-function buildCopy(idx) {
-  var allTips = TIPS.today.concat(TIPS.tomorrow);
-  var t = allTips[idx];
-  if (!t) return '';
-  var odds = t.oddsCheckerOdds ? ' @ ' + t.oddsCheckerOdds : '';
-  return t.playerName + ' \u2014 Player To Be Booked' + odds + '\n' + t.match + ' | ' + t.kickOff + ' BST | ' + t.league;
-}
-
+// -- buildCard --
 function buildCard(tip, idx) {
   var foulsStat = tip.stats.foulsPerGame !== null ? tip.stats.foulsPerGame.toFixed(2) : 'N/A';
   var initials = tip.playerName.split(' ').map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase();
@@ -453,16 +510,55 @@ function buildCard(tip, idx) {
     + '<div class="tip-card-body">'
     + '<div class="player-row">'
     + '<div class="player-avatar">' + initials + '</div>'
-    + '<div class="player-name">' + tip.playerName + '</div>'
+    + '<div class="player-info"><div class="player-name">' + tip.playerName + '</div></div>'
     + '<div class="idx-badge" style="margin-left:auto;">' + (idx + 1) + '</div>'
     + '</div>'
     + '<div class="tip-type-label">' + tip.tipType + '</div>'
     + statsHtml + refHtml
     + '<p class="analysis-text">' + tip.analysis + '</p>'
-    + '<div class="odds-block">' + buildOddsBlock(tip) + '</div>'
+    + '<div class="odds-block">' + buildOddsBlock(tip, idx) + '</div>'
     + '</div></article>';
 }
 
+// -- buildCopy --
+function buildCopy(idx) {
+  var allTips = TIPS.today.concat(TIPS.tomorrow);
+  var t = allTips[idx];
+  if (!t) return;
+  var odds = t.oddsCheckerOdds ? ' @ ' + t.oddsCheckerOdds : '';
+  var fouls = t.stats.foulsPerGame !== null ? t.stats.foulsPerGame.toFixed(2) : 'N/A';
+  var text = t.playerName + ' \u2014 Player To Be Shown A Card' + odds + '\n'
+    + t.match + ' | ' + t.league + ' | ' + t.kickOff + ' BST\n'
+    + 'Yellows: ' + t.stats.yellowsThisSeason
+    + ' | Fouls/90: ' + fouls
+    + ' | Cards/90: ' + t.stats.cardsPer90.toFixed(2) + '\n'
+    + 'Ref: ' + t.referee.name + ' (' + t.referee.avgCardsPerGame.toFixed(2) + ' cards/game avg)\n\n'
+    + t.analysis;
+  var btn = document.getElementById('copy-btn-' + idx);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() { flashCopy(btn); });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    try { document.execCommand('copy'); flashCopy(btn); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+}
+
+function flashCopy(btn) {
+  if (!btn) return;
+  btn.textContent = 'Copied!';
+  btn.classList.add('copied');
+  setTimeout(function() {
+    btn.textContent = 'Copy tip to clipboard';
+    btn.classList.remove('copied');
+  }, 2000);
+}
+
+// -- render --
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('gen-date').textContent = 'GENERATED: ' + GENERATED_DATE;
 
