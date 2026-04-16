@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Betting Tips — Will Jackson</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --accent: #f5a623;
+  --text: #e8eaf0;
+  --subtext: #8b90a7;
+  --green: #27ae60;
+  --amber: #f39c12;
+  --red: #e74c3c;
+  --border: #2c2f3e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 1.5rem;
+  line-height: 1.6;
+}
+header {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 1rem;
+}
+header h1 { font-size: 1.8rem; color: var(--accent); letter-spacing: 0.05em; }
+header p { color: var(--subtext); font-size: 0.85rem; margin-top: 0.3rem; }
+.section { max-width: 900px; margin: 0 auto 2.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+.section-header h2 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--subtext); white-space: nowrap; }
+.section-header .line { flex: 1; height: 1px; background: var(--border); }
+.section-date { font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: 1rem; }
+.no-tips { color: var(--subtext); font-style: italic; padding: 1rem; background: var(--surface); border-radius: 8px; border: 1px solid var(--border); }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 12px 12px 0 0;
+}
+.card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.player-name { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+.player-meta { font-size: 0.85rem; color: var(--subtext); margin-top: 0.2rem; }
+.confidence { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0; }
+.confidence-HIGH { background: #1a3a2a; color: #27ae60; border: 1px solid #27ae60; }
+.confidence-MEDIUM { background: #3a2e1a; color: #f39c12; border: 1px solid #f39c12; }
+.confidence-LOW { background: #3a1a1a; color: #e74c3c; border: 1px solid #e74c3c; }
+.match-info { background: rgba(245,166,35,0.07); border: 1px solid rgba(245,166,35,0.18); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.88rem; }
+.match-info .league { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 700; margin-bottom: 0.25rem; }
+.match-info .teams { font-weight: 600; color: var(--text); }
+.match-info .kickoff { color: var(--accent); font-weight: 600; }
+.match-info .context { color: var(--subtext); font-size: 0.82rem; margin-top: 0.2rem; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1rem; }
+.stat-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.65rem 0.5rem; text-align: center; }
+.stat-value { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: 0.63rem; color: var(--subtext); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.15rem; }
+.ref-line { font-size: 0.8rem; color: var(--subtext); margin-bottom: 1rem; }
+.ref-line span { color: var(--text); font-weight: 500; }
+.analysis p { font-size: 0.9rem; line-height: 1.75; color: #c5c8d8; margin-bottom: 0.75rem; }
+.odds-block { display: flex; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap; align-items: center; }
+.odds-btn { display: inline-block; padding: 0.5rem 1.1rem; border-radius: 6px; font-size: 0.83rem; font-weight: 700; text-decoration: none; transition: opacity 0.2s; background: var(--accent); color: #0f1117; }
+.odds-btn:hover { opacity: 0.85; }
+.odds-btn-alt { background: #2c2f3e; color: var(--text); }
+.copy-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1.1rem; border-radius: 6px; font-size: 0.83rem; font-weight: 600; background: transparent; color: var(--subtext); border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; }
+.copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+.copy-btn.copied { border-color: #27ae60; color: #27ae60; }
+footer { max-width: 900px; margin: 3rem auto 0; padding: 1.5rem; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); text-align: center; }
+footer h3 { color: var(--amber); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+footer p { color: var(--subtext); font-size: 0.78rem; line-height: 1.6; }
+footer a { color: var(--accent); text-decoration: none; }
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .card-header { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>&#x1F7E8; Card Betting Tips</h1>
+  <p>Generated: Thu 16 Apr 2026, 14:00 UK &nbsp;&middot;&nbsp; UEFA Europa League &middot; Premier League</p>
+</header>
+
+<div id="app"></div>
+
+<footer>
+  <h3>Responsible Gambling</h3>
+  <p>
+    Gambling should be fun. Never bet more than you can afford to lose. Tips are for entertainment only &mdash; past results are no guarantee of future outcomes.<br>
+    If gambling is causing problems, visit <a href="https://www.begambleaware.org" target="_blank" rel="noopener">BeGambleAware.org</a> or call <strong>0808 8020 133</strong> (free, 24/7).
+  </p>
+</footer>
+
+<script>
+var GENERATED_DATE = 'Thu 16 Apr 2026, 14:00 UK';
+
+var TIPS = {
+  today: [
+    {
+      match: 'Aston Villa vs Bologna',
+      league: 'UEFA Europa League',
+      kickOff: '20:00',
+      context: 'UEL QF 2nd leg \u2014 Villa lead 3-1 on aggregate',
+      playerName: 'Remo Freuler',
+      club: 'Bologna FC',
+      position: 'CDM',
+      tipType: 'To Be Carded',
+      confidence: 'HIGH',
+      boyleSportsOdds: '13/8',
+      boyleSportsUrl: 'https://www.boylesports.com/sports/football/bet-builder',
+      stats: { yellowsThisSeason: 5, foulsPerGame: null, cardsPer90: 0.30, appearances: 16 },
+      referee: { name: 'Jos\u00e9 Mar\u00eda S\u00e1nchez Mart\u00ednez', avgCardsPerGame: 4.13 },
+      analysisP1: "Remo Freuler is Bologna\u2019s combative Swiss international holding midfielder and the engine of their press. He has accumulated 5 yellow cards in Serie A this season across 16 appearances, underscoring a physical, ball-winning style that has always defined his game. Operating as the midfield anchor who shields the back four, Freuler routinely steps into challenges that bring him into contact with opponents, and his booking rate reflects a willingness to commit to tackles that edge close to the referee\u2019s threshold. Historically one of the most frequently cautioned midfielders in Italy during his Atalanta years, that aggressive edge has transferred seamlessly to his Bologna role.",
+      analysisP2: "With Aston Villa holding a commanding 3-1 lead from the first leg at Bologna\u2019s Renato Dall\u2019Ara, the Italian side must score three unanswered goals at Villa Park to advance \u2014 an almost unprecedented turnaround. That desperate chase mentality puts Freuler at the centre of everything: he will be tasked with winning the ball quickly, driving play forward and ensuring Bologna do not concede. The urgency of the task means he is almost certain to be involved in the match\u2019s most physical exchanges. Spanish referee Jos\u00e9 Mar\u00eda S\u00e1nchez Mart\u00ednez averages 4.13 yellow cards per match this season \u2014 among the highest of any European referee \u2014 making this a standout booking proposition when Freuler\u2019s combative style meets high-pressure circumstances."
+    },
+    {
+      match: 'Real Betis vs Braga',
+      league: 'UEFA Europa League',
+      kickOff: '17:45',
+      context: 'UEL QF 2nd leg \u2014 tied 1-1 on aggregate (La Cartuja, Seville)',
+      playerName: 'Marc Roca',
+      club: 'Real Betis',
+      position: 'CDM',
+      tipType: 'To Be Carded',
+      confidence: 'MEDIUM',
+      boyleSportsOdds: '9/4',
+      boyleSportsUrl: 'https://www.boylesports.com/sports/football/bet-builder',
+      stats: { yellowsThisSeason: 4, foulsPerGame: null, cardsPer90: 0.22, appearances: 18 },
+      referee: { name: 'Davide Massa', avgCardsPerGame: 3.70 },
+      analysisP1: "Marc Roca is Real Betis\u2019 defensive midfield anchor and leads the squad in La Liga fouls committed this season with 33 across league and cup appearances \u2014 a clear indicator of his ball-winning, physically intense approach. The former Leeds United and Bayern Munich midfielder was signed precisely for his combative qualities, patrolling the space in front of the backline and making the aggressive interceptions that Betis rely on. He has been cautioned 4 times across all competitions in 2025-26 and has shown a consistent willingness to go to ground even when already under the referee\u2019s scrutiny.",
+      analysisP2: "With this quarter-final finely balanced at 1-1 on aggregate, both teams know that a single goal at La Cartuja de Sevilla could decide which side reaches the Europa League semi-finals. Braga will need to attack with genuine intent, and Roca will be their primary barrier in midfield \u2014 sitting deep, pressing relentlessly and making the interventions that protect Betis. That role places him in harm\u2019s way throughout the 90 minutes. Italian referee Davide Massa averages 3.7 yellow cards per match this season and has a reputation for booking persistent foulers early, which only raises the likelihood of a caution for Betis\u2019 combative midfield enforcer."
+    }
+  ],
+  tomorrow: [],
+  dayAfterTomorrow: [
+    {
+      match: 'Chelsea vs Manchester United',
+      league: 'Premier League',
+      kickOff: '20:00',
+      context: 'PL Matchweek 33 \u2014 Chelsea pushing for top 4; Man Utd seeking to halt decline',
+      playerName: 'Mo\u00efses Caicedo',
+      club: 'Chelsea',
+      position: 'CDM',
+      tipType: 'To Be Carded',
+      confidence: 'HIGH',
+      boyleSportsOdds: '6/4',
+      boyleSportsUrl: 'https://www.boylesports.com/sports/football/bet-builder',
+      stats: { yellowsThisSeason: 4, foulsPerGame: 1.67, cardsPer90: 0.32, appearances: 24 },
+      referee: { name: 'Paul Tierney', avgCardsPerGame: 3.63 },
+      analysisP1: "Mo\u00efses Caicedo is Chelsea\u2019s first-choice CDM and the most prolific fouler in their midfield. He has 4 yellow cards in 24 Premier League appearances this season, committing 1.67 fouls per 90 minutes \u2014 a rate that consistently ranks him among the division\u2019s busiest foulers in his position. The Ecuadorian plays an aggressive, press-triggering role as Chelsea\u2019s midfield enforcer, not shying away from late or strong challenges to win possession. He has demonstrated a willingness to operate at the edge throughout this campaign, including a red card in all competitions this season, underlining that his combative instincts regularly push him to the limit of what referees will accept.",
+      analysisP2: "Chelsea hosting Manchester United at Stamford Bridge is one of the Premier League\u2019s most charged occasions. Chelsea are fighting for European qualification and will look to dominate midfield, placing Caicedo at the heart of the contest; United, meanwhile, will be direct and physical in transition, precisely the conditions that prompt Caicedo to overcommit on the challenge. Paul Tierney, appointed as referee for this fixture, averages 3.63 yellow cards per game in 2025-26 and has been swift to book persistent foulers. With Caicedo\u2019s 1.67 fouls per 90 and the match\u2019s inherent intensity, a booking represents the highest-confidence tip of the weekend."
+    },
+    {
+      match: 'Tottenham Hotspur vs Brighton',
+      league: 'Premier League',
+      kickOff: '17:30',
+      context: 'PL Matchweek 33 \u2014 Brighton in European-spot push; Spurs under home pressure',
+      playerName: 'Carlos Baleba',
+      club: 'Brighton & Hove Albion',
+      position: 'CDM',
+      tipType: 'To Be Carded',
+      confidence: 'MEDIUM',
+      boyleSportsOdds: '5/2',
+      boyleSportsUrl: 'https://www.boylesports.com/sports/football/bet-builder',
+      stats: { yellowsThisSeason: 5, foulsPerGame: null, cardsPer90: 0.35, appearances: 13 },
+      referee: { name: 'Anthony Taylor', avgCardsPerGame: 3.56 },
+      analysisP1: "Carlos Baleba is Brighton\u2019s young Cameroonian holding midfielder and has established one of the highest booking rates in the Premier League this season, with 5 yellow cards in just 13 appearances \u2014 a disciplinary record that reflects the intensity and physicality he brings to Brighton\u2019s engine room. The 20-year-old plays with a combative edge that belies his age, routinely putting his body into challenges and pressing aggressively when out of possession. That fearless approach is a key part of Brighton\u2019s system but also makes him one of the division\u2019s most reliably carded midfielders when the physical stakes are high.",
+      analysisP2: "An away trip to Tottenham Hotspur Stadium presents Baleba with one of the most direct and physical midfield contests he will face this season. Spurs play a direct, high-tempo game that forces visiting defensive midfielders into repeated recovery challenges, and with Brighton chasing European places, Baleba will need to be everywhere at once \u2014 screening the back four, winning possession and driving forward. That multi-role burden in a match where the physical intensity rarely dips is exactly the scenario that leads to yellow cards. Anthony Taylor averages around 3.56 yellow cards per game and has been consistent in booking players for persistent fouling, making Baleba\u2019s caution a legitimate mid-confidence play for Saturday evening."
+    }
+  ]
+};
+
+function buildCopy(idx) {
+  var allTips = TIPS.today.concat(TIPS.tomorrow).concat(TIPS.dayAfterTomorrow);
+  var tip = allTips[idx];
+  var fpg = tip.stats.foulsPerGame !== null ? tip.stats.foulsPerGame.toFixed(2) : 'N/A';
+  var text = tip.playerName + ' to be Carded\n\nYellows\tFoul/Game\tCards/90\tApps\n' +
+    tip.stats.yellowsThisSeason + '\t' + fpg + '\t' + tip.stats.cardsPer90.toFixed(2) + '\t' + tip.stats.appearances +
+    '\n\n' + tip.analysisP1 + '\n\n' + tip.analysisP2;
+  var btn = document.getElementById('copy-btn-' + idx);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() { flashCopy(btn); }).catch(function() { fallbackCopy(text, btn); });
+  } else {
+    fallbackCopy(text, btn);
+  }
+}
+
+function fallbackCopy(text, btn) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); flashCopy(btn); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+function flashCopy(btn) {
+  if (!btn) return;
+  btn.textContent = 'Copied!';
+  btn.classList.add('copied');
+  setTimeout(function() { btn.textContent = 'Copy tip'; btn.classList.remove('copied'); }, 2000);
+}
+
+function buildOddsBlock(tip, idx) {
+  var html = '<div class="odds-block">';
+  if (tip.boyleSportsOdds) {
+    html += '<a class="odds-btn" href="' + tip.boyleSportsUrl + '" target="_blank" rel="noopener">BoyleSports ' + tip.boyleSportsOdds + '</a>';
+  } else {
+    html += '<span class="odds-btn" style="background:#2c2f3e;color:#8b90a7;cursor:not-allowed;">BoyleSports \u2014 TBC</span>';
+  }
+  var ocSlug = tip.match.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  html += '<a class="odds-btn odds-btn-alt" href="https://www.oddschecker.com/football/" target="_blank" rel="noopener">Oddschecker</a>';
+  html += '<button id="copy-btn-' + idx + '" class="copy-btn" onclick="buildCopy(' + idx + ')">Copy tip</button>';
+  html += '</div>';
+  return html;
+}
+
+function buildStats(stats) {
+  var fpg = stats.foulsPerGame !== null ? stats.foulsPerGame.toFixed(2) : '\u2014';
+  return '<div class="stats-grid">' +
+    '<div class="stat-box"><div class="stat-value">' + stats.yellowsThisSeason + '</div><div class="stat-label">Yellows<br>Season</div></div>' +
+    '<div class="stat-box"><div class="stat-value">' + fpg + '</div><div class="stat-label">Fouls<br>/Game</div></div>' +
+    '<div class="stat-box"><div class="stat-value">' + stats.cardsPer90.toFixed(2) + '</div><div class="stat-label">Cards<br>/90</div></div>' +
+    '<div class="stat-box"><div class="stat-value">' + stats.appearances + '</div><div class="stat-label">Apps<br>Season</div></div>' +
+    '</div>';
+}
+
+function buildCard(tip, idx) {
+  return '<div class="card">' +
+    '<div class="card-header">' +
+      '<div><div class="player-name">' + tip.playerName + '</div><div class="player-meta">' + tip.club + ' &middot; ' + tip.position + ' &middot; ' + tip.tipType + '</div></div>' +
+      '<span class="confidence confidence-' + tip.confidence + '">' + tip.confidence + '</span>' +
+    '</div>' +
+    '<div class="match-info">' +
+      '<div class="league">' + tip.league + '</div>' +
+      '<div class="teams">' + tip.match + ' <span class="kickoff">&middot; ' + tip.kickOff + ' UK</span></div>' +
+      '<div class="context">' + tip.context + '</div>' +
+    '</div>' +
+    buildStats(tip.stats) +
+    '<div class="ref-line">Referee: <span>' + tip.referee.name + '</span> &nbsp;&middot;&nbsp; avg <span>' + tip.referee.avgCardsPerGame.toFixed(2) + ' cards/game</span></div>' +
+    '<div class="analysis"><p>' + tip.analysisP1 + '</p><p>' + tip.analysisP2 + '</p></div>' +
+    buildOddsBlock(tip, idx) +
+    '</div>';
+}
+
+function render() {
+  var sections = [
+    { label: 'TODAY', date: 'Thursday 16 April 2026', tips: TIPS.today },
+    { label: 'TOMORROW', date: 'Friday 17 April 2026', tips: TIPS.tomorrow, emptyMsg: 'No major European or Premier League fixtures on Friday 17 April. Check back for weekend tips below.' },
+    { label: 'DAY AFTER TOMORROW', date: 'Saturday 18 April 2026', tips: TIPS.dayAfterTomorrow }
+  ];
+  var html = '';
+  var idx = 0;
+  sections.forEach(function(section) {
+    html += '<div class="section"><div class="section-header"><h2>' + section.label + '</h2><div class="line"></div></div><div class="section-date">' + section.date + '</div>';
+    if (section.tips.length === 0) {
+      html += '<div class="no-tips">' + (section.emptyMsg || 'No tips available.') + '</div>';
+    } else {
+      section.tips.forEach(function(tip) {
+        html += buildCard(tip, idx);
+        idx++;
+      });
+    }
+    html += '</div>';
+  });
+  document.getElementById('app').innerHTML = html;
+}
+
+render();
+</script>
+</body>
+</html>
