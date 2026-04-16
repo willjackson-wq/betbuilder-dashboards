@@ -23,4 +23,5 @@ Apply the rotation to each of the three future days, not to today.
 
 ### Slack
 - Canvas: F0ANZHYGD7G in #fb-page-updates (private channel C0ANL746CB1)
-- Post **Day 1 only** (tomorrow's content) to #fb-page-updates after updating the canvas
+- Post **Day 1 content only** (tomorrow's content — the nearest of the three days) to #fb-page-updates after updating the canvas
+  - e.g. script runs Friday → post Saturday's content to Slack
