@@ -282,6 +282,24 @@
       border: 1px solid var(--border);
     }
     .odds-btn-null:hover { border-color: var(--accent); color: var(--accent); }
+    .copy-btn {
+      display: block;
+      width: 100%;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      margin-top: 6px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .copy-btn.copied { border-color: #27ae60; color: #27ae60; }
     /* Index badge */
     .idx-badge {
       width: 22px;
@@ -359,7 +377,7 @@ const TIPS = {
       position: "CM",
       tipType: "Player To Be Booked",
       oddsCheckerOdds: null,
-      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/celta-vigo-v-sc-freiburg/player-booked",
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/celta-vigo-v-sc-freiburg/to-be-shown-a-card",
       stats: {
         yellowsThisSeason: 5,
         foulsPerGame: 1.09,
@@ -382,7 +400,7 @@ const TIPS = {
       position: "CM",
       tipType: "Player To Be Booked",
       oddsCheckerOdds: null,
-      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/aston-villa-v-bologna/player-booked",
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/aston-villa-v-bologna/to-be-shown-a-card",
       stats: {
         yellowsThisSeason: 3,
         foulsPerGame: 1.05,
@@ -405,7 +423,7 @@ const TIPS = {
       position: "CDM",
       tipType: "Player To Be Booked",
       oddsCheckerOdds: null,
-      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/nottingham-forest-v-porto/player-booked",
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/nottingham-forest-v-porto/to-be-shown-a-card",
       stats: {
         yellowsThisSeason: 9,
         foulsPerGame: null,
@@ -428,7 +446,7 @@ const TIPS = {
       position: "CDM",
       tipType: "Player To Be Booked",
       oddsCheckerOdds: null,
-      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/real-betis-v-braga/player-booked",
+      oddsCheckerUrl: "https://www.oddschecker.com/football/europa-league/real-betis-v-braga/to-be-shown-a-card",
       stats: {
         yellowsThisSeason: 3,
         foulsPerGame: 1.50,
@@ -453,7 +471,7 @@ const TIPS = {
       position: "CM",
       tipType: "Player To Be Booked",
       oddsCheckerOdds: null,
-      oddsCheckerUrl: "https://www.oddschecker.com/football/italian-serie-a/inter-milan-v-cagliari/player-booked",
+      oddsCheckerUrl: "https://www.oddschecker.com/football/italian-serie-a/inter-milan-v-cagliari/to-be-shown-a-card",
       stats: {
         yellowsThisSeason: 5,
         foulsPerGame: 1.37,
@@ -470,15 +488,11 @@ const TIPS = {
 };
 
 // ── buildOddsBlock ──────────────────────────────
-function buildOddsBlock(tip) {
-  if (tip.oddsCheckerOdds) {
-    return `<a href="${tip.oddsCheckerUrl}" target="_blank" rel="noopener" class="odds-btn">
-      Oddschecker: ${tip.oddsCheckerOdds}
-    </a>`;
-  }
-  return `<a href="${tip.oddsCheckerUrl}" target="_blank" rel="noopener" class="odds-btn-null">
-    View odds on Oddschecker &rarr;
-  </a>`;
+function buildOddsBlock(tip, idx) {
+  var oddsLink = tip.oddsCheckerOdds
+    ? '<a href="' + tip.oddsCheckerUrl + '" target="_blank" rel="noopener" class="odds-btn">Oddschecker: ' + tip.oddsCheckerOdds + '</a>'
+    : '<a href="' + tip.oddsCheckerUrl + '" target="_blank" rel="noopener" class="odds-btn-null">View odds on Oddschecker \u2192</a>';
+  return oddsLink + '<button class="copy-btn" id="copy-btn-' + idx + '" onclick="buildCopy(' + idx + ')">Copy tip to clipboard</button>';
 }
 
 // ── buildCard ───────────────────────────────────
@@ -540,7 +554,7 @@ function buildCard(tip, idx) {
       ${refHtml}
       <p class="analysis-text">${tip.analysis}</p>
       <div class="odds-block">
-        ${buildOddsBlock(tip)}
+        ${buildOddsBlock(tip, idx)}
       </div>
     </div>
   </article>`;
@@ -548,11 +562,40 @@ function buildCard(tip, idx) {
 
 // ── buildCopy ───────────────────────────────────
 function buildCopy(idx) {
-  const allTips = [...TIPS.today, ...TIPS.tomorrow];
-  const t = allTips[idx];
-  if (!t) return '';
-  const odds = t.oddsCheckerOdds ? ` @ ${t.oddsCheckerOdds}` : '';
-  return `${t.playerName} (${t.club}) — Player To Be Booked${odds}\n${t.match} | ${t.kickOff} BST | ${t.league}`;
+  var allTips = TIPS.today.concat(TIPS.tomorrow);
+  var t = allTips[idx];
+  if (!t) return;
+  var odds = t.oddsCheckerOdds ? ' @ ' + t.oddsCheckerOdds : '';
+  var fouls = t.stats.foulsPerGame !== null ? t.stats.foulsPerGame.toFixed(2) : 'N/A';
+  var text = t.playerName + ' \u2014 Player To Be Shown A Card' + odds + '\n'
+    + t.match + ' | ' + t.league + ' | ' + t.kickOff + ' BST\n'
+    + 'Yellows: ' + t.stats.yellowsThisSeason
+    + ' | Fouls/90: ' + fouls
+    + ' | Cards/90: ' + t.stats.cardsPer90.toFixed(2) + '\n'
+    + 'Ref: ' + t.referee.name + ' (' + t.referee.avgCardsPerGame.toFixed(2) + ' cards/game avg)\n\n'
+    + t.analysis;
+  var btn = document.getElementById('copy-btn-' + idx);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() { flashCopy(btn); });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    try { document.execCommand('copy'); flashCopy(btn); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+}
+
+function flashCopy(btn) {
+  if (!btn) return;
+  btn.textContent = 'Copied!';
+  btn.classList.add('copied');
+  setTimeout(function() {
+    btn.textContent = 'Copy tip to clipboard';
+    btn.classList.remove('copied');
+  }, 2000);
 }
 
 // ── render ──────────────────────────────────────
