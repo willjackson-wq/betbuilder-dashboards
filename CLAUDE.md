@@ -144,7 +144,7 @@ Match on `home_team_display` and `away_team_display`. The fixture `id` is requir
 https://api.opticodds.com/api/v3/markets/active?fixture_id={fixture_id}&sportsbook={sportsbook}
 ```
 
-Confirm a booking market is available before fetching odds. Booking market names to look for: `player_to_be_carded`, `player_yellow_card`, `anytime_yellow_card`.
+Confirm a booking market is available before fetching odds. The actual available market in the API is `first_card_receiver` — markets like `player_to_be_carded`, `player_yellow_card`, and `anytime_yellow_card` do not exist. Use `first_card_receiver` for all player booking tips.
 
 **Step D — Fetch booking odds**
 
