@@ -120,10 +120,16 @@ def audit_page(url):
             found = MONEY_RE.findall(p.get_text())
             body_amounts.extend(found)
     # Normalise: remove space after £, strip trailing punctuation, dedupe
+    # Cap at £999 to ignore deposit/withdrawal limits which are always far larger
     def normalise(amt):
         return re.sub(r'£\s+', '£', amt).rstrip(',.')
 
-    body_amounts = list(dict.fromkeys(normalise(a) for a in body_amounts))
+    def numeric_value(amt):
+        return int(re.sub(r'[£,]', '', amt))
+
+    body_amounts = list(dict.fromkeys(
+        normalise(a) for a in body_amounts if numeric_value(a) <= 999
+    ))
 
     return cta_text, body_amounts
 
