@@ -3,51 +3,42 @@
 **Schedule:** Every Monday at 8:30 BST  
 **Slack channel:** #fb-page-updates
 
-## Instructions
+## What to do
 
-Every Monday morning, crawl through every brand review page on freebets.com and check that the offer in the CTA box matches the offer mentioned in the article body.
+### 1. Get all brand review URLs
 
-### Step 1 — Get the full page list
+Fetch `https://www.freebets.com/sitemap.xml` and extract every URL that matches the pattern `freebets.com/betting-sites/reviews/[slug]/`. Do not use the index page — it only shows 8 of the 75 brands.
 
-Fetch the sitemap to get all review URLs (the index page only shows 8 brands as the rest are JS-rendered):
+### 2. Fetch and check each page
 
-```
-https://www.freebets.com/sitemap.xml
-```
+For each URL, make an HTTP GET request with this User-Agent header:
+`Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36`
 
-Extract all URLs matching `freebets.com/betting-sites/reviews/[slug]/`.
+Wait 0.5 seconds between each request to avoid rate limiting.
 
-### Step 2 — Check each page
+From each page, extract:
+- The **CTA offer text** — found in the HTML element with CSS class `featured-offer__bonus`
+- Any **monetary amounts** (e.g. £10, £30, £40) mentioned in the article body paragraphs
 
-For each URL, fetch the page and extract:
-- **CTA offer**: the text in the `featured-offer__bonus` CSS class
-- **Article amounts**: any monetary values (e.g. £10, £30) in the article body paragraphs
+Then apply this logic:
+- If the CTA box is **missing** → the brand has no active offer. Add it to the "no active offer" list.
+- If the CTA contains monetary amounts that **do not appear anywhere in the article body** → add it to the "needs amending" list, noting the CTA offer and what the article says instead.
+- If the article body contains **no monetary amounts at all** → the page is intentionally evergreen. Mark it as clean.
+- Otherwise → mark as clean.
 
-**Matching logic:**
-- If the CTA offer contains monetary amounts that do NOT appear anywhere in the article body → flag as needing amendment
-- If the article body contains no monetary amounts at all → still include in the weekly check but do not flag as an error (these pages are written to be evergreen, which is intentional)
-- If the CTA box is missing entirely → the brand has no active offer; list it separately for monitoring (a new offer may appear in future weeks)
+### 3. Post to Slack
 
-### Step 3 — Post to Slack
-
-Once all pages are checked, post a summary to `#fb-page-updates` in this format:
+Post the results to the Slack channel `#fb-page-updates` using this format:
 
 > **Freebets Reviews Audit — Monday [date]**
 >
 > Checked [n] pages under freebets.com/betting-sites/reviews/
 >
 > **Pages where CTA offer doesn't match article content (needs amending):**
-> • [brand] — CTA: [offer] | Article mentions [amounts]
-> *(or "None — clean run" if no mismatches)*
+> • [brand] — CTA: [offer] | Article mentions [amounts found]
+> *(If none: "None — all checked pages are consistent")*
 >
 > **No active offer (CTA box missing — monitor for when deals return):**
 > [brand list]
 >
 > **Clean run for remaining [n] pages — no action required.**
-
-## Technical notes
-
-- All HTTP requests must include a browser User-Agent header (e.g. `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36`) — the site returns 503 without it.
-- Fetch pages sequentially with a short delay (~0.5s) between requests. Concurrent fetching triggers rate limiting and causes 503 errors.
-- Page content including CTAs and article body text is server-rendered and fully readable from the raw HTTP response.
-- The CTA offer text lives in the `featured-offer__bonus` CSS class.
