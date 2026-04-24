@@ -9,3 +9,7 @@ When selecting yellow card booking tips, always apply criteria in this exact ord
 3. **Season stats** — card tallies and foul rates used as supporting evidence only, never as the primary selector
 
 Do not lead with cumulative yellow card totals. A player with 9 yellows who hasn't been booked in 5 games is a weaker pick than a player with 5 yellows who was booked last weekend in a similarly pressured fixture.
+
+## Minimum Tips Per Day
+
+Every day covered must have at least one tip. Never leave a day blank. If the strongest candidates do not perfectly satisfy all criteria, select the best available option from that day's fixtures and make the case clearly — do not skip the day entirely.
